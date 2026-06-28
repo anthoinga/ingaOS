@@ -3,70 +3,64 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg-primary:   #131210;
+    --bg-surface:   #1c1a17;
+    --bg-raised:    #3E3A32;
+    --text-primary: #DFD9D0;
+    --text-muted:   #56534D;
+    --accent:       #80CBC4;
+    --accent-warm:  #FFCC00;
+
+    --radius: 0.5rem;
+
+    /* shadcn/ui base tokens (dark theme by default) */
+    --background: 20 7% 7%;
+    --foreground: 40 15% 87%;
+    --card: 25 9% 11%;
+    --card-foreground: 40 15% 87%;
+    --popover: 25 9% 11%;
+    --popover-foreground: 40 15% 87%;
+    --primary: 177 28% 64%;
+    --primary-foreground: 20 7% 7%;
+    --secondary: 30 11% 22%;
+    --secondary-foreground: 40 15% 87%;
+    --muted: 30 11% 22%;
+    --muted-foreground: 30 5% 34%;
+    --accent: 177 28% 64%;
+    --accent-foreground: 20 7% 7%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 40 15% 87%;
+    --border: 30 11% 22%;
+    --input: 30 11% 22%;
+    --ring: 177 28% 64%;
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
   body {
-    /* Colors */
-    --colorBackground: #f2f2f2;
-    --colorTileBg: #e8e8e8;
-    --colorText: #3d3d3d;
-    --colorTextMuted: #adacb1;
-    --colorWhite: #ffffff;
-    --colorSpotifyGreen: #3fc56e;
-    --colorBlack: #000000;
-
-    /* Spacing */
-    --spacingContainerPadding: 8px;
-    --spacingTilePaddingX: 40px;
-    --spacingTilePaddingY: 24px;
-    --spacingTileGap: 8px;
-    --spacingTileRadius: 12px;
-    --spacingSpacerHeight: 19px;
-    --spacingHeaderHeight: 36px;
-    --spacingFooterHeight: 60px;
-    --spacingPillRadius: 20px;
-    --spacingPillPaddingX: 8px;
-    --spacingPillPaddingY: 10px;
-
-    /* Typography – fonts */
-    --fontLogo: 'Monofett', sans-serif;
-    --fontCode: 'Fira Code', monospace;
-    --fontMono: 'Fira Mono', monospace;
-    --fontBody: 'Montserrat', sans-serif;
-
-    /* Typography – sizes */
-    --fontSizeLogo: 24px;
-    --fontSizeHeading: 16px;
-    --fontSizeSubheading: 15px;
-    --fontSizeBody: 14px;
-    --fontSizeSmall: 10px;
-
-    /* Shadows */
-    --shadowTile: 0px 4px 8.6px 0px rgba(0, 0, 0, 0.1);
-    --shadowText: 0px 0px 2px rgba(0, 0, 0, 0.4);
-
-    /* Breakpoints (for reference / JS) */
-    --breakpointMobile: 768px;
-    --breakpointTablet: 1024px;
-    --breakpointDesktop: 1440px;
-
-    /* Content protection */
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Prevent image dragging and selection */
-  img {
-    user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-  }
-
-  /* Allow pointer events on links and buttons */
-  a, button {
-    pointer-events: auto;
+  #root {
+    width: 100%;
+    height: 100%;
   }
 }

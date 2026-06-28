@@ -1,0 +1,10 @@
+[
+  {
+    "id": "track-1",
+    "title": "Track Title",
+    "artist": "Artist Name",
+    "src": "/music/track-1.mp3",
+    "cover": "/images/album-cover.png",
+    "duration": 180
+  }
+]

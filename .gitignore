@@ -6,13 +6,18 @@ node_modules/
 # Testing
 /coverage
 
-# Next.js
+# Next.js (legacy)
 /.next/
 /out/
 
+# Vite
+/dist
+
 # Production
 /build
-/dist
+
+# Claude Code
+.claude/
 
 # Environment variables
 .env

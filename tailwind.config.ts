@@ -1,18 +1,34 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class'],
+  content: [
+    './index.html',
+    './src/**/*.{ts,tsx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
-        logo: ['Monofett', 'sans-serif'],
-        code: ['Fira Code', 'monospace'],
-        mono: ['Fira Mono', 'monospace'],
-        body: ['Montserrat', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        'bg-primary': 'var(--bg-primary)',
+        'bg-surface': 'var(--bg-surface)',
+        'bg-raised': 'var(--bg-raised)',
+        'text-primary': 'var(--text-primary)',
+        'text-muted': 'var(--text-muted)',
+        accent: 'var(--accent)',
+        'accent-warm': 'var(--accent-warm)',
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
     },
   },
   plugins: [],
-};
+}
 
-export default config;
+export default config

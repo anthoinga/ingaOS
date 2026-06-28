@@ -1,0 +1,33 @@
+{
+  "landing": {
+    "name": "Inga",
+    "tagline": "Diseñadora × Desarrolladora",
+    "cta": "Abrir"
+  },
+  "categories": {
+    "settings": "Ajustes",
+    "work": "Trabajo",
+    "built": "Construido",
+    "browser": "Navegador",
+    "photos": "Fotos",
+    "music": "Música",
+    "files": "Archivos",
+    "contacts": "Contactos",
+    "games": "Juegos"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "theme": "Tema",
+    "theme_dark": "Oscuro",
+    "theme_light": "Claro",
+    "language": "Idioma",
+    "lang_en": "English",
+    "lang_es": "Español"
+  },
+  "apps": {
+    "close": "Cerrar",
+    "back": "Volver",
+    "loading": "Cargando…",
+    "error": "Algo salió mal."
+  }
+}

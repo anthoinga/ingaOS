@@ -1,0 +1,33 @@
+{
+  "landing": {
+    "name": "Inga",
+    "tagline": "Designer × Developer",
+    "cta": "Open"
+  },
+  "categories": {
+    "settings": "Settings",
+    "work": "Work",
+    "built": "Built",
+    "browser": "Browser",
+    "photos": "Photos",
+    "music": "Music",
+    "files": "Files",
+    "contacts": "Contacts",
+    "games": "Games"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "language": "Language",
+    "lang_en": "English",
+    "lang_es": "Español"
+  },
+  "apps": {
+    "close": "Close",
+    "back": "Back",
+    "loading": "Loading…",
+    "error": "Something went wrong."
+  }
+}

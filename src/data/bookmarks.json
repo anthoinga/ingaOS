@@ -1,0 +1,17 @@
+[
+  {
+    "id": "geocities-example",
+    "label": "Early Web Archive",
+    "url": "https://web.archive.org/web/19971015000000if_/http://www.geocities.com/"
+  },
+  {
+    "id": "winamp",
+    "label": "Winamp 2.x",
+    "url": "https://web.archive.org/web/20011213000000if_/http://www.winamp.com/"
+  },
+  {
+    "id": "napster",
+    "label": "Napster (2001)",
+    "url": "https://web.archive.org/web/20010331000000if_/http://www.napster.com/"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "email",
+    "label": "Email",
+    "value": "hello@example.com",
+    "url": "mailto:hello@example.com",
+    "icon": "✉️"
+  },
+  {
+    "id": "linkedin",
+    "label": "LinkedIn",
+    "value": "linkedin.com/in/example",
+    "url": "https://linkedin.com/in/example",
+    "icon": "💼"
+  },
+  {
+    "id": "github",
+    "label": "GitHub",
+    "value": "github.com/example",
+    "url": "https://github.com/example",
+    "icon": "🐙"
+  },
+  {
+    "id": "read-cv",
+    "label": "Read.cv",
+    "value": "read.cv/example",
+    "url": "https://read.cv/example",
+    "icon": "📄"
+  }
+]
