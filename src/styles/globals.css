@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* Colors */
+    --colorBackground: #f2f2f2;
+    --colorTileBg: #e8e8e8;
+    --colorText: #3d3d3d;
+    --colorTextMuted: #adacb1;
+    --colorWhite: #ffffff;
+    --colorSpotifyGreen: #3fc56e;
+    --colorBlack: #000000;
+
+    /* Spacing */
+    --spacingContainerPadding: 8px;
+    --spacingTilePaddingX: 40px;
+    --spacingTilePaddingY: 24px;
+    --spacingTileGap: 8px;
+    --spacingTileRadius: 12px;
+    --spacingSpacerHeight: 19px;
+    --spacingHeaderHeight: 36px;
+    --spacingFooterHeight: 60px;
+    --spacingPillRadius: 20px;
+    --spacingPillPaddingX: 8px;
+    --spacingPillPaddingY: 10px;
+
+    /* Typography – fonts */
+    --fontLogo: 'Monofett', sans-serif;
+    --fontCode: 'Fira Code', monospace;
+    --fontMono: 'Fira Mono', monospace;
+    --fontBody: 'Montserrat', sans-serif;
+
+    /* Typography – sizes */
+    --fontSizeLogo: 24px;
+    --fontSizeHeading: 16px;
+    --fontSizeSubheading: 15px;
+    --fontSizeBody: 14px;
+    --fontSizeSmall: 10px;
+
+    /* Shadows */
+    --shadowTile: 0px 4px 8.6px 0px rgba(0, 0, 0, 0.1);
+    --shadowText: 0px 0px 2px rgba(0, 0, 0, 0.4);
+
+    /* Breakpoints (for reference / JS) */
+    --breakpointMobile: 768px;
+    --breakpointTablet: 1024px;
+    --breakpointDesktop: 1440px;
+
+    /* Content protection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Prevent image dragging and selection */
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+  }
+
+  /* Allow pointer events on links and buttons */
+  a, button {
+    pointer-events: auto;
+  }
+}
