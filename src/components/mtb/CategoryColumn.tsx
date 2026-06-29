@@ -1,8 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { CategoryIcon } from './CategoryIcon'
 import type { Category, CategoryKey } from '@/types'
-
-const ACTIVE_COLUMN_RATIO = 0.22 // active icon rests this fraction in from the left edge (XMB pan)
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 interface Props {
   categories: Category[]
@@ -19,16 +18,18 @@ export function CategoryColumn({
 }: Props) {
   const columnRef = useRef<HTMLDivElement>(null)
   const iconRefs = useRef<Array<HTMLDivElement | null>>([])
+  const isMobile = useIsMobile()
+  const activeColumnRatio = isMobile ? 0.5 : 0.22
 
-  // Slide the column so the active icon sits at the rest ratio from the left edge — XMB pan behaviour
+  // Slide the column so the active icon sits at the rest ratio from the left edge — MTB pan behaviour
   useEffect(() => {
     const column = columnRef.current
     const activeEl = iconRefs.current[activeCategoryIndex]
     if (!column || !activeEl) return
-    const targetX = window.innerWidth * ACTIVE_COLUMN_RATIO
+    const targetX = window.innerWidth * activeColumnRatio
     const iconMid = activeEl.offsetLeft + activeEl.offsetWidth / 2
     column.style.transform = `translateX(${targetX - iconMid}px)`
-  }, [activeCategoryIndex])
+  }, [activeCategoryIndex, activeColumnRatio])
 
   return (
     <div

@@ -1,5 +1,5 @@
 import { useReducer, useCallback, useEffect } from 'react'
-import type { XMBState, CategoryKey } from '@/types'
+import type { MTBState, CategoryKey } from '@/types'
 import { CATEGORIES } from '@/data/categories'
 import { playSound } from '@/effects/soundEngine'
 import { useMusic } from '@/contexts/MusicContext'
@@ -12,7 +12,7 @@ type Action =
   | { type: 'SET_TRANSITIONING'; value: boolean }
   | { type: 'RESET_ITEM_INDEX' }
 
-function reducer(state: XMBState, action: Action): XMBState {
+function reducer(state: MTBState, action: Action): MTBState {
   switch (action.type) {
     case 'MOVE_CATEGORY': {
       const next = state.activeCategoryIndex + action.direction
@@ -39,14 +39,14 @@ function reducer(state: XMBState, action: Action): XMBState {
   }
 }
 
-const INITIAL: XMBState = {
+const INITIAL: MTBState = {
   activeCategoryIndex: 0,
   activeItemIndex: 0,
   openApp: null,
   transitioning: false,
 }
 
-export function useXMBNavigation(isActive: boolean = true, onExit?: () => void) {
+export function useMTBNavigation(isActive: boolean = true, onExit?: () => void) {
   const [state, dispatch] = useReducer(reducer, INITIAL)
   const { play } = useMusic()
 

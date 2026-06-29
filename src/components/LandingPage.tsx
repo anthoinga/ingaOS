@@ -46,8 +46,7 @@ interface Props {
 
 function useStaticFallback(): boolean {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const coarse = window.matchMedia('(pointer: coarse)').matches
-  return reduced || coarse
+  return reduced
 }
 
 const VERT = `#version 300 es
@@ -203,7 +202,7 @@ function compileShader(gl: WebGL2RenderingContext, type: number, src: string): W
 // (declared in eslint.config.js). Its tuned constants are named here for hand-tuning — they are
 // deliberately NOT promoted to globals.css design tokens.
 const BACKDROP_RGB: [number, number, number] = [0.20, 0.19, 0.18] // warm near-black dither fill
-const SHADER_PIXEL_SIZE = 4.0 // dither cell edge, in device pixels
+const SHADER_PIXEL_SIZE = 6.0 // dither cell edge, in device pixels
 
 // Duration of the landing→shell wipe. App.tsx schedules its view swap to land on the same beat.
 export const REVEAL_MS = 850
@@ -298,8 +297,9 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
     startTimeRef.current = performance.now()
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = canvas.offsetWidth * dpr
+      canvas.height = canvas.offsetHeight * dpr
       gl.viewport(0, 0, canvas.width, canvas.height)
     }
     resize()
@@ -308,10 +308,11 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
 
     const draw = () => {
       const now = (performance.now() - startTimeRef.current) / 1000
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
       gl.uniform1f(uTime, now)
       gl.uniform3fv(uColor, BACKDROP_RGB)
       gl.uniform2f(uResolution, canvas.width, canvas.height)
-      gl.uniform1f(uPixelSize, SHADER_PIXEL_SIZE)
+      gl.uniform1f(uPixelSize, SHADER_PIXEL_SIZE * dpr)
 
       gl.uniform2fv(uClickPos, clickPosRef.current)
       gl.uniform1fv(uClickTimes, clickTimesRef.current)

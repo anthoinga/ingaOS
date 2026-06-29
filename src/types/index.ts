@@ -15,31 +15,31 @@ export interface Category {
   key: CategoryKey
   labelKey: string
   icon: string
-  items: XMBItem[]
+  items: MTBItem[]
 }
 
-export interface XMBItem {
+export interface MTBItem {
   id: string
   label: string
   labelKey?: string
   subtitle?: string
   thumbnail?: string
-  action?: XMBAction
+  action?: MTBAction
 }
 
 // Minimum contract all app components must satisfy; item is available for apps that need it.
 export interface AppProps {
   onClose: () => void
-  item?: XMBItem
+  item?: MTBItem
 }
 
-export type XMBAction =
+export type MTBAction =
   | { type: 'openApp'; app: CategoryKey }
   | { type: 'openUrl'; url: string }
   | { type: 'openPdf'; url: string }
   | { type: 'playTrack'; trackId: string; title: string; artist: string; src: string; cover?: string }
 
-export interface XMBState {
+export interface MTBState {
   activeCategoryIndex: number
   activeItemIndex: number
   openApp: CategoryKey | null

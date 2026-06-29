@@ -20,7 +20,7 @@ import {
   YELLOW,
   type ShaderColors,
 } from '@/effects/WaveBackground'
-import type { XMBItem } from '@/types'
+import type { MTBItem } from '@/types'
 
 // One source of truth for an item's visual identity: the wave palette behind it (system →
 // effect contract), plus the icon/extension/color of its file-symbol chip. Both the shell's
@@ -44,7 +44,7 @@ const IDENTITY = {
   generic:  { palette: CRIMSON, icon: FileCode, extension: 'doc', colorClass: 'text-neutral-400 bg-neutral-500/10 border-neutral-500/25' },
 } satisfies Record<string, ItemIdentity>
 
-export function resolveItemMeta(item: XMBItem): ItemIdentity {
+export function resolveItemMeta(item: MTBItem): ItemIdentity {
   const id = item.id.toLowerCase()
   const isUrl = item.action?.type === 'openUrl'
 
