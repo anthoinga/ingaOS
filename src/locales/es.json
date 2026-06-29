@@ -2,7 +2,8 @@
   "landing": {
     "name": "Inga",
     "tagline": "Diseñadora × Desarrolladora",
-    "cta": "Abrir"
+    "cta": "Abrir",
+    "hero": "está construyendo interfaces"
   },
   "categories": {
     "settings": "Ajustes",
@@ -29,5 +30,20 @@
     "back": "Volver",
     "loading": "Cargando…",
     "error": "Algo salió mal."
+  },
+  "items": {
+    "settings_main": "Ajustes del Sistema",
+    "settings_about": "Acerca de",
+    "connect": "Conectar",
+    "friends_coming_soon": "Amigos (Próximamente)",
+    "resume_cv": "Currículum",
+    "talks_coming_soon": "Charlas y PDFs (Próximamente)",
+    "experiments_coming_soon": "Experimentos (Próximamente)",
+    "bookmarks_coming_soon": "Marcadores (Próximamente)",
+    "gallery_coming_soon": "Galería (Próximamente)",
+    "galaga_coming_soon": "Galaga (Próximamente)",
+    "more_games_coming_soon": "Más Juegos (Próximamente)",
+    "library_coming_soon": "Biblioteca (Próximamente)",
+    "visualizer_coming_soon": "Visualizador (Próximamente)"
   }
 }

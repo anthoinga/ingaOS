@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react'
 import { CategoryIcon } from './CategoryIcon'
 import type { Category, CategoryKey } from '@/types'
 
+const ACTIVE_RAIL_RATIO = 0.22 // active icon rests this fraction in from the left edge (XMB pan)
+
 interface Props {
   categories: Category[]
   activeCategoryIndex: number
@@ -16,26 +18,31 @@ export function CategoryRail({
   onOpenApp,
 }: Props) {
   const railRef = useRef<HTMLDivElement>(null)
+  const iconRefs = useRef<Array<HTMLDivElement | null>>([])
 
-  // keep active icon centred in the rail on mobile
+  // Slide the rail so the active icon sits at the rest ratio from the left edge — XMB pan behaviour
   useEffect(() => {
     const rail = railRef.current
-    if (!rail) return
-    const active = rail.children[activeCategoryIndex] as HTMLElement | undefined
-    if (!active) return
-    active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    const activeEl = iconRefs.current[activeCategoryIndex]
+    if (!rail || !activeEl) return
+    const targetX = window.innerWidth * ACTIVE_RAIL_RATIO
+    const iconMid = activeEl.offsetLeft + activeEl.offsetWidth / 2
+    rail.style.transform = `translateX(${targetX - iconMid}px)`
   }, [activeCategoryIndex])
 
   return (
     <div
       ref={railRef}
-      className="flex items-end gap-2 px-8 overflow-x-auto scrollbar-none"
-      style={{ scrollSnapType: 'x mandatory' }}
+      className="flex items-center gap-2 px-8 w-max"
+      style={{ transition: 'transform 300ms ease' }}
       role="tablist"
       aria-label="Categories"
     >
       {categories.map((cat, i) => (
-        <div key={cat.key} style={{ scrollSnapAlign: 'center' }}>
+        <div
+          key={cat.key}
+          ref={el => { iconRefs.current[i] = el }}
+        >
           <CategoryIcon
             category={cat}
             isActive={i === activeCategoryIndex}

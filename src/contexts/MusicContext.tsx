@@ -1,5 +1,6 @@
 import { createContext, useContext, useRef, useState, useCallback, type ReactNode } from 'react'
 import { Howl } from 'howler'
+import { setMusicPlaying } from '@/effects/soundEngine'
 
 interface Track {
   id: string
@@ -60,15 +61,18 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       onplay: () => {
         setIsPlaying(true)
         startProgressLoop()
+        setMusicPlaying(true)
       },
       onend: () => {
         setIsPlaying(false)
         setProgress(0)
         stopProgressLoop()
+        setMusicPlaying(false)
       },
       onpause: () => {
         setIsPlaying(false)
         stopProgressLoop()
+        setMusicPlaying(false)
       },
     })
 
@@ -84,6 +88,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   const resume = useCallback(() => {
     howlRef.current?.play()
+    setMusicPlaying(true)
   }, [])
 
   const seek = useCallback((seconds: number) => {
@@ -100,6 +105,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     setIsPlaying(false)
     setProgress(0)
     stopProgressLoop()
+    setMusicPlaying(false)
   }, [stopProgressLoop])
 
   return (

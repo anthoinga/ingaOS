@@ -1,6 +1,30 @@
 import { useTranslation } from 'react-i18next'
+import {
+  Settings,
+  Briefcase,
+  Hammer,
+  Globe,
+  Image,
+  Music2,
+  FileText,
+  User,
+  Gamepad2,
+  type LucideIcon,
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Category } from '@/types'
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  settings: Settings,
+  work: Briefcase,
+  built: Hammer,
+  browser: Globe,
+  photos: Image,
+  music: Music2,
+  files: FileText,
+  contacts: User,
+  games: Gamepad2,
+}
 
 interface Props {
   category: Category
@@ -10,32 +34,33 @@ interface Props {
 
 export function CategoryIcon({ category, isActive, onClick }: Props) {
   const { t } = useTranslation()
+  const IconComponent = ICON_MAP[category.key] || Globe
 
   return (
     <button
       onClick={onClick}
       className={cn(
-        'flex flex-col items-center gap-2 px-4 py-3 rounded-lg transition-all duration-200 select-none',
-        'focus:outline-none',
+        'flex flex-col items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 select-none focus:outline-none',
         isActive
-          ? 'scale-125 opacity-100'
-          : 'scale-100 opacity-50 hover:opacity-75',
+          ? 'scale-110'
+          : 'scale-[0.9] text-neutral-500',
       )}
       aria-label={t(category.labelKey)}
     >
-      <span className="text-3xl leading-none" role="img" aria-hidden>
-        {category.icon}
-      </span>
-      <span
+      <IconComponent
         className={cn(
-          'text-xs font-medium tracking-wide transition-colors duration-200 font-sans',
-          isActive ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]',
+          'w-20 h-20 transition-all duration-200',
+          isActive
+            ? 'text-white drop-shadow-[0_0_8px_var(--accent)]'
+            : 'text-current',
         )}
-      >
-        {t(category.labelKey)}
-      </span>
+        strokeWidth={1.75}
+        fill="none"
+      />
       {isActive && (
-        <span className="block w-1 h-1 rounded-full bg-[var(--accent)]" />
+        <span className="text-base font-medium tracking-wide font-sans text-white">
+          {t(category.labelKey)}
+        </span>
       )}
     </button>
   )

@@ -21,7 +21,7 @@ export function WorkViewer({ onClose: _onClose }: Props) {
   }, [])
 
   const openStudy = (slug: string) => {
-    getCaseStudy(slug).then(setSelected)
+    getCaseStudy(slug).then((s) => { if (s) setSelected(s) })
   }
 
   if (loading) return <Centered>{t('apps.loading')}</Centered>

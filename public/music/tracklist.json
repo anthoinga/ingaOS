@@ -1,9 +1,25 @@
 [
   {
-    "id": "track-1",
-    "title": "Track Title",
-    "artist": "Artist Name",
-    "src": "/music/track-1.mp3",
+    "id": "gasolina",
+    "title": "Gasolina",
+    "artist": "Daddy Yankee",
+    "src": "/music/Daddy Yankee - Gasolina.mp3",
+    "cover": "/images/album-cover.png",
+    "duration": 192
+  },
+  {
+    "id": "freak-on-a-leash",
+    "title": "Freak on a Leash",
+    "artist": "Korn",
+    "src": "/music/Korn - Freak on a Leash.mp3",
+    "cover": "/images/album-cover.png",
+    "duration": 255
+  },
+  {
+    "id": "el-rosario-de-mi-madre",
+    "title": "El Rosario de Mi Madre",
+    "artist": "Los Embajadores Criollos",
+    "src": "/music/Los Embajadores Criollos - El Rosario de Mi Madre.mp3",
     "cover": "/images/album-cover.png",
     "duration": 180
   }

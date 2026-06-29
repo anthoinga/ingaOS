@@ -11,8 +11,31 @@
     --text-muted:   #56534D;
     --accent:       #80CBC4;
     --accent-warm:  #FFCC00;
+    --accent-mint:  #6EE7B7;
+    --accent-lime:  #A3E635;
+    --accent-crimson: #EF4444;
+    --accent-green: #34D399;
+    --accent-purple: #A855F7;
+    --accent-orange: #F97316;
+    --accent-cyan: #06B6D4;
+    --accent-blue: #3B82F6;
+    --accent-yellow: #EAB308;
 
     --radius: 0.5rem;
+  }
+
+  /* Light theme overrides only the surface/text ramp; the shell keeps its dark chrome.
+     SettingsPanel toggles [data-theme] — it does not set these values in JS. */
+  :root[data-theme='light'] {
+    --bg-primary:   #F5F2EE;
+    --bg-surface:   #EBE7E1;
+    --bg-raised:    #D6D0C8;
+    --text-primary: #1C1A17;
+    --text-muted:   #8A8278;
+
+    /* visionOS Spatial Glass tokens */
+    --glass-bg-fill: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 
     /* shadcn/ui base tokens (dark theme by default) */
     --background: 20 7% 7%;
@@ -34,6 +57,15 @@
     --border: 30 11% 22%;
     --input: 30 11% 22%;
     --ring: 177 28% 64%;
+    --accent-mint: #10B981;
+    --accent-lime: #65A30D;
+    --accent-crimson: #DC2626;
+    --accent-green: #059669;
+    --accent-purple: #7C3AED;
+    --accent-orange: #EA580C;
+    --accent-cyan: #0891B2;
+    --accent-blue: #2563EB;
+    --accent-yellow: #CA8A04;
   }
 }
 
@@ -62,5 +94,50 @@
   #root {
     width: 100%;
     height: 100%;
+  }
+}
+
+@layer utilities {
+  .glass-active {
+    background-color: rgba(140, 140, 140, 0.18) !important;
+    box-shadow: 
+      var(--glass-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    backdrop-filter: blur(20px) !important;
+  }
+
+  .glass-sidebar {
+    background-color: rgba(28, 26, 23, 0.75) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: 
+      -4px 0 24px rgba(0, 0, 0, 0.25),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  :root[data-theme='light'] .glass-sidebar {
+    background-color: rgba(235, 231, 225, 0.75) !important;
+    box-shadow: 
+      -4px 0 24px rgba(0, 0, 0, 0.1),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.4) !important;
+  }
+
+  @keyframes text-pulse-glow {
+    from {
+      text-shadow: 0 0 4px hsla(var(--accent) / 0.21);
+    }
+    to {
+      text-shadow: 0 0 10px hsla(var(--accent) / 0.6), 0 0 16px hsla(var(--accent) / 0.21);
+    }
+  }
+
+  .active-text-glow {
+    animation: text-pulse-glow 1.5s ease-in-out infinite alternate;
+  }
+
+  .accent-text-glow {
+    text-shadow: 0 0 8px hsla(var(--accent) / 0.5);
   }
 }

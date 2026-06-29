@@ -1,7 +1,8 @@
 import { useReducer, useCallback, useEffect } from 'react'
 import type { XMBState, CategoryKey } from '@/types'
 import { CATEGORIES } from '@/data/categories'
-import { playSound } from '@/lib/soundEngine'
+import { playSound } from '@/effects/soundEngine'
+import { useMusic } from '@/contexts/MusicContext'
 
 type Action =
   | { type: 'MOVE_CATEGORY'; direction: -1 | 1 }
@@ -9,6 +10,7 @@ type Action =
   | { type: 'OPEN_APP'; app: CategoryKey }
   | { type: 'CLOSE_APP' }
   | { type: 'SET_TRANSITIONING'; value: boolean }
+  | { type: 'RESET_ITEM_INDEX' }
 
 function reducer(state: XMBState, action: Action): XMBState {
   switch (action.type) {
@@ -30,6 +32,8 @@ function reducer(state: XMBState, action: Action): XMBState {
       return { ...state, openApp: null, transitioning: true }
     case 'SET_TRANSITIONING':
       return { ...state, transitioning: action.value }
+    case 'RESET_ITEM_INDEX':
+      return { ...state, activeItemIndex: 0 }
     default:
       return state
   }
@@ -42,8 +46,9 @@ const INITIAL: XMBState = {
   transitioning: false,
 }
 
-export function useXMBNavigation() {
+export function useXMBNavigation(isActive: boolean = true, onExit?: () => void) {
   const [state, dispatch] = useReducer(reducer, INITIAL)
+  const { play } = useMusic()
 
   const moveCategory = useCallback((dir: -1 | 1) => {
     playSound('tick_horizontal')
@@ -78,20 +83,48 @@ export function useXMBNavigation() {
     const item = items[state.activeItemIndex]
     if (!item) return
     const action = item.action
+    if (!action) {
+      playSound('tick_horizontal')
+      return
+    }
     if (action.type === 'openApp') {
       playSound('select_confirm')
       openApp(action.app)
+    } else if (action.type === 'openUrl') {
+      playSound('select_confirm')
+      window.open(action.url, '_blank', 'noopener')
+    } else if (action.type === 'playTrack') {
+      playSound('select_confirm')
+      play({
+        id: action.trackId,
+        title: action.title,
+        artist: action.artist,
+        src: action.src,
+        cover: action.cover,
+      })
     }
-  }, [state.activeCategoryIndex, state.activeItemIndex, openApp])
+  }, [state.activeCategoryIndex, state.activeItemIndex, openApp, play])
 
   const doneTransitioning = useCallback(() => {
     dispatch({ type: 'SET_TRANSITIONING', value: false })
   }, [])
 
   useEffect(() => {
+    if (!isActive) return
+
     const onKey = (e: KeyboardEvent) => {
       if (state.openApp) {
         if (e.key === 'Escape') closeApp()
+        return
+      }
+      if (e.key === 'Escape') {
+        if (state.activeItemIndex > 0) {
+          playSound('close_swoosh')
+          dispatch({ type: 'RESET_ITEM_INDEX' })
+        } else if (onExit) {
+          playSound('close_swoosh')
+          onExit()
+        }
         return
       }
       switch (e.key) {
@@ -104,7 +137,7 @@ export function useXMBNavigation() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [state.openApp, moveCategory, moveItem, confirmSelect, closeApp])
+  }, [isActive, state.openApp, state.activeItemIndex, moveCategory, moveItem, confirmSelect, closeApp, onExit])
 
   return { state, moveCategory, moveItem, openApp, closeApp, confirmSelect, doneTransitioning }
 }

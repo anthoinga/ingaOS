@@ -18,6 +18,11 @@ node_modules/
 
 # Claude Code
 .claude/
+memory/
+context/
+
+# Antigravity
+.agents/
 
 # Environment variables
 .env

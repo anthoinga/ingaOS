@@ -1,40 +1,62 @@
+import { useTranslation } from 'react-i18next'
+import { motion, type MotionValue } from 'motion/react'
 import { cn } from '@/lib/utils'
+import { FileTypeSymbol } from './FileTypeSymbol'
 import type { XMBItem } from '@/types'
 
 interface Props {
   item: XMBItem
   isActive: boolean
   onClick: () => void
+  subOpacity?: MotionValue<number>
 }
 
-export function ItemRow({ item, isActive, onClick }: Props) {
+export function ItemRow({ item, isActive, onClick, subOpacity }: Props) {
+  const { t } = useTranslation()
+
   return (
     <button
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-4 px-5 py-3 rounded-lg text-left transition-all duration-150',
+        'w-full flex items-center gap-6 px-8 h-[92px] rounded-3xl text-left transition-colors duration-100 shrink-0',
         'focus:outline-none select-none',
         isActive
-          ? 'bg-[var(--bg-raised)] text-[var(--text-primary)]'
-          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)]',
+          ? 'glass-active text-[var(--text-primary)]'
+          : 'text-[var(--text-muted)]',
       )}
     >
+      <FileTypeSymbol item={item} />
       {item.thumbnail && (
         <img
           src={item.thumbnail}
           alt=""
-          className="w-10 h-10 rounded object-cover shrink-0"
+          className="w-16 h-16 rounded object-cover shrink-0"
         />
       )}
       <div className="min-w-0">
-        <p className="text-sm font-medium font-sans truncate">{item.label}</p>
+        <p className={cn("text-lg font-medium font-sans truncate", isActive && "active-text-glow")}>
+          {item.labelKey ? t(item.labelKey) : item.label}
+        </p>
         {item.subtitle && (
-          <p className="text-xs text-[var(--text-muted)] truncate">{item.subtitle}</p>
+          <motion.p
+            style={subOpacity ? { opacity: subOpacity } : undefined}
+            className="text-base text-[var(--text-muted)] truncate"
+          >
+            {item.subtitle}
+          </motion.p>
         )}
       </div>
-      {isActive && (
-        <span className="ml-auto text-[var(--accent)] text-xs">▶</span>
-      )}
+      <motion.span
+        style={subOpacity ? { opacity: isActive ? subOpacity : 0 } : undefined}
+        animate={isActive ? { x: [0, 4, 0] } : { x: 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className={cn(
+          'ml-auto text-white text-base',
+          isActive ? 'pointer-events-auto' : 'pointer-events-none'
+        )}
+      >
+        ▶
+      </motion.span>
     </button>
   )
 }

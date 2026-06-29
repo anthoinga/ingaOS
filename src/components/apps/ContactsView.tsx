@@ -5,7 +5,7 @@ interface Props { onClose: () => void }
 export function ContactsView({ onClose: _onClose }: Props) {
   return (
     <div className="h-full overflow-y-auto px-6 py-6 max-w-sm">
-      <h2 className="text-lg font-display font-semibold text-[var(--text-primary)] mb-4">Contacts</h2>
+      <h2 className="text-lg font-display font-medium text-[var(--text-primary)] mb-4">Contacts</h2>
       <div className="flex flex-col gap-2">
         {contacts.map((c) => (
           <a

@@ -1,17 +1,27 @@
 [
   {
-    "id": "geocities-example",
-    "label": "Early Web Archive",
-    "url": "https://web.archive.org/web/19971015000000if_/http://www.geocities.com/"
+    "id": "playstation-2000",
+    "label": "PlayStation (2000)",
+    "url": "https://web.archive.org/web/20001018223617if_/http://www.playstation.com/"
   },
   {
-    "id": "winamp",
+    "id": "spacejam-1996",
+    "label": "Space Jam (1996)",
+    "url": "https://www.spacejam.com/1996/"
+  },
+  {
+    "id": "google-1998",
+    "label": "Google Beta (1998)",
+    "url": "https://web.archive.org/web/19981202230410if_/http://www.google.com/"
+  },
+  {
+    "id": "apple-1997",
+    "label": "Apple (1997)",
+    "url": "https://web.archive.org/web/19971022201948if_/http://www.apple.com/"
+  },
+  {
+    "id": "winamp-2001",
     "label": "Winamp 2.x",
     "url": "https://web.archive.org/web/20011213000000if_/http://www.winamp.com/"
-  },
-  {
-    "id": "napster",
-    "label": "Napster (2001)",
-    "url": "https://web.archive.org/web/20010331000000if_/http://www.napster.com/"
   }
 ]

@@ -2,7 +2,8 @@
   "landing": {
     "name": "Inga",
     "tagline": "Designer × Developer",
-    "cta": "Open"
+    "cta": "Open",
+    "hero": "is building interfaces"
   },
   "categories": {
     "settings": "Settings",
@@ -29,5 +30,20 @@
     "back": "Back",
     "loading": "Loading…",
     "error": "Something went wrong."
+  },
+  "items": {
+    "settings_main": "System Settings",
+    "settings_about": "About",
+    "connect": "Connect",
+    "friends_coming_soon": "Friends (Coming soon)",
+    "resume_cv": "Resume / CV",
+    "talks_coming_soon": "Talks & PDFs (coming soon)",
+    "experiments_coming_soon": "Experiments (coming soon)",
+    "bookmarks_coming_soon": "Bookmarks (coming soon)",
+    "gallery_coming_soon": "Gallery (coming soon)",
+    "galaga_coming_soon": "Galaga (coming soon)",
+    "more_games_coming_soon": "More Games (coming soon)",
+    "library_coming_soon": "Library (coming soon)",
+    "visualizer_coming_soon": "Visualizer (coming soon)"
   }
 }

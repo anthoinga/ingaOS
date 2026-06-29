@@ -1,18 +1,32 @@
-import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createClient, type SanityClient } from '@sanity/client'
+import imageUrlBuilder, { type ImageUrlBuilder } from '@sanity/image-url'
 import type { SanityImageSource } from '@sanity/image-url'
 
-export const client = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID ?? '',
-  dataset: import.meta.env.VITE_SANITY_DATASET ?? 'production',
-  apiVersion: '2024-01-01',
-  useCdn: true,
-})
+// Lazy — only created when VITE_SANITY_PROJECT_ID is present.
+// Without it the module still imports cleanly and query functions return []/null.
+let _client: SanityClient | null = null
+let _builder: ImageUrlBuilder | null = null
 
-const builder = imageUrlBuilder(client)
+function getClient(): SanityClient | null {
+  const projectId = import.meta.env.VITE_SANITY_PROJECT_ID
+  if (!projectId) return null
+  if (!_client) {
+    _client = createClient({
+      projectId,
+      dataset: import.meta.env.VITE_SANITY_DATASET ?? 'production',
+      apiVersion: '2024-01-01',
+      useCdn: true,
+    })
+    _builder = imageUrlBuilder(_client)
+  }
+  return _client
+}
 
-export function urlFor(source: SanityImageSource) {
-  return builder.image(source)
+export function urlFor(source: SanityImageSource): ReturnType<ImageUrlBuilder['image']> {
+  const c = getClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (!c || !_builder) return { url: () => '' } as any
+  return _builder.image(source)
 }
 
 // --- Query types ---
@@ -51,22 +65,28 @@ export interface Talk {
 // --- Queries ---
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
-  return client.fetch(
+  const c = getClient()
+  if (!c) return []
+  return c.fetch(
     `*[_type == "caseStudy"] | order(year desc) {
       _id, title, slug, year, role, tags, coverImage
     }`,
   )
 }
 
-export async function getCaseStudy(slug: string): Promise<CaseStudy> {
-  return client.fetch(
+export async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
+  const c = getClient()
+  if (!c) return null
+  return c.fetch(
     `*[_type == "caseStudy" && slug.current == $slug][0]`,
     { slug },
   )
 }
 
 export async function getPhotos(): Promise<Photo[]> {
-  return client.fetch(
+  const c = getClient()
+  if (!c) return []
+  return c.fetch(
     `*[_type == "photo"] | order(date desc) {
       _id, image, caption, location, date, tags
     }`,
@@ -74,7 +94,9 @@ export async function getPhotos(): Promise<Photo[]> {
 }
 
 export async function getTalks(): Promise<Talk[]> {
-  return client.fetch(
+  const c = getClient()
+  if (!c) return []
+  return c.fetch(
     `*[_type == "talk"] | order(date desc) {
       _id, title, event, date, location,
       pdf { asset->{ url } },
