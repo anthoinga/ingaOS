@@ -73,7 +73,7 @@ export function MTBShell({ onExit, isActive = true }: Props) {
         <StatusBar />
       </div>
 
-      <div className="relative w-full h-full pt-[20vh] sm:pt-[25vh]">
+      <div className="relative z-10 w-full h-full pt-[20vh] sm:pt-[25vh]">
         <div className="relative z-10 overflow-hidden w-full h-[120px] sm:h-[180px]">
           <CategoryColumn
             categories={CATEGORIES}
