@@ -187,7 +187,9 @@ void main() {
     float bw    = step(0.5, feed + bayer);
 
     float M = maskTriangle(pixelUV, pixelId, bw);
-    fragColor = vec4(uColor, M);
+    vec3 bgColor = vec3(12.0 / 255.0, 11.0 / 255.0, 10.0 / 255.0);
+    vec3 col = mix(bgColor, uColor, M);
+    fragColor = vec4(col, 1.0);
 }
 `
 
@@ -267,7 +269,7 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const gl = canvas.getContext('webgl2')
+    const gl = canvas.getContext('webgl2', { alpha: false, antialias: false })
     if (!gl) return
 
     const vert = compileShader(gl, gl.VERTEX_SHADER, VERT)
@@ -350,12 +352,12 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
       {!useFallback ? (
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full -z-10"
+          className="absolute inset-0 w-full h-full z-0"
           style={{ display: 'block' }}
         />
       ) : (
         <div
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 z-0"
           style={{
             background: 'linear-gradient(160deg, #131210 0%, #0c0b0a 100%)',
           }}
@@ -394,7 +396,7 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
       </div>
 
       {/* Main hero typography and bottom links wrapped in single left-aligned flex container */}
-      <div className="flex flex-col justify-between items-start w-full h-full pt-36 pb-16 px-12 md:px-24">
+      <div className="relative z-10 flex flex-col justify-between items-start w-full h-full pt-36 pb-16 px-12 md:px-24">
         {/* Main Hero */}
         <div className="my-auto max-w-4xl">
           <h1 className="text-5xl md:text-7xl font-sans font-light tracking-tight text-[var(--text-primary)] text-left leading-[1.15]">

@@ -40,9 +40,9 @@ export function useSwipeNavigation({
 
       if (absX > absY) {
         if (dx > 0) {
-          moveCategory(1)
-        } else {
           moveCategory(-1)
+        } else {
+          moveCategory(1)
         }
       } else {
         if (dy < 0) {
