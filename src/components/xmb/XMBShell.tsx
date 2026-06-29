@@ -2,11 +2,11 @@ import { cn } from '@/lib/utils'
 import { useXMBNavigation } from '@/hooks/useXMBNavigation'
 import { CATEGORIES } from '@/data/categories'
 import { playSound } from '@/effects/soundEngine'
-import { CategoryRail } from './CategoryRail'
+import { CategoryColumn } from './CategoryColumn'
 import { ItemList } from './ItemList'
 import { WaveBackground, CRIMSON } from '@/effects/WaveBackground'
-import { itemIdentity } from './itemIdentity'
-import { AppMount } from './AppMount'
+import { resolveItemMeta } from './itemMeta'
+import { ContentPanel } from './ContentPanel'
 import { CornerUpLeft } from 'lucide-react'
 import { StatusBar } from './StatusBar'
 import { useMusic } from '@/contexts/MusicContext'
@@ -23,7 +23,7 @@ export function XMBShell({ onExit, isActive = true }: Props) {
 
   const activeCategory = CATEGORIES[state.activeCategoryIndex]
   const activeItem = activeCategory?.items[state.activeItemIndex]
-  const targetColors = activeItem ? itemIdentity(activeItem).palette : CRIMSON
+  const targetColors = activeItem ? resolveItemMeta(activeItem).palette : CRIMSON
 
   const handleSelectItem = (index: number) => {
     const diff = index - state.activeItemIndex
@@ -70,7 +70,7 @@ export function XMBShell({ onExit, isActive = true }: Props) {
 
       <div className="relative w-full h-full pt-[25vh]">
         <div className="relative z-10 overflow-hidden w-full h-[180px]">
-          <CategoryRail
+          <CategoryColumn
             categories={CATEGORIES}
             activeCategoryIndex={state.activeCategoryIndex}
             onSelectCategory={handleSelectCategory}
@@ -96,7 +96,7 @@ export function XMBShell({ onExit, isActive = true }: Props) {
         )}
       </div>
 
-      <AppMount openApp={state.openApp} activeItem={activeItem ?? null} onClose={closeApp} />
+      <ContentPanel openApp={state.openApp} activeItem={activeItem ?? null} onClose={closeApp} />
 
       {/* Bottom-left back exit button (styled to match FileTypeSymbol) */}
       <button

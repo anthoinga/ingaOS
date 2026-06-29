@@ -32,7 +32,7 @@ interface Props {
   onClose: () => void
 }
 
-export function AppMount({ openApp, activeItem, onClose }: Props) {
+export function ContentPanel({ openApp, activeItem, onClose }: Props) {
   const { t } = useTranslation()
   const Component = openApp ? APP_REGISTRY[openApp] : null
   const isSidebar = openApp ? SIDEBAR_APPS.has(openApp) : false

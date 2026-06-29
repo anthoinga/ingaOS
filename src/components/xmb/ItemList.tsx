@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion, useMotionValue, useTransform, animate, type MotionValue } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import { ItemRow } from './ItemRow'
+import { ItemEntry } from './ItemEntry'
 import type { Category, XMBItem } from '@/types'
 
 const ROW_PITCH = 96 // px between item centers; scrollY tracks -activeItemIndex * ROW_PITCH
@@ -76,7 +76,7 @@ function PlaylistItemWrapper({
       }}
       className="w-full shrink-0 origin-left"
     >
-      <ItemRow
+      <ItemEntry
         item={item}
         isActive={index === activeItemIndex}
         subOpacity={subOpacity}

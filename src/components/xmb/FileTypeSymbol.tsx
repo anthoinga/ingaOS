@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { itemIdentity } from './itemIdentity'
+import { resolveItemMeta } from './itemMeta'
 import type { XMBItem } from '@/types'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function FileTypeSymbol({ item, className }: Props) {
-  const { icon: Icon, extension, colorClass } = itemIdentity(item)
+  const { icon: Icon, extension, colorClass } = resolveItemMeta(item)
 
   return (
     <div

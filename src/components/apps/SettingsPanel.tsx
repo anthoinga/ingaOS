@@ -1,27 +1,8 @@
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { XMBItem } from '@/types'
+import type { AppProps } from '@/types'
 
-interface Props {
-  onClose: () => void
-  item?: XMBItem
-}
-
-type Theme = 'dark' | 'light'
-
-export function SettingsPanel({ onClose: _onClose, item }: Props) {
+export function SettingsPanel({ onClose: _onClose, item }: AppProps) {
   const { t, i18n } = useTranslation()
-  
-  // Theme switcher state commented out for later
-  // const [theme, setTheme] = useState<Theme>(
-  //   () => (localStorage.getItem('theme') as Theme | null) ?? 'dark',
-  // )
-  const theme: Theme = 'dark'
-
-  useEffect(() => {
-    localStorage.setItem('theme', theme)
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
@@ -48,29 +29,6 @@ export function SettingsPanel({ onClose: _onClose, item }: Props) {
       <h2 className="text-lg font-display font-medium text-[var(--text-primary)] mb-6">
         {t('settings.title')}
       </h2>
-
-      {/* Theme Switcher disabled for now but kept for later
-      <section className="mb-6">
-        <h3 className="text-xs uppercase tracking-widest text-[var(--text-muted)] mb-3">
-          {t('settings.theme')}
-        </h3>
-        <div className="flex gap-2">
-          {(['dark', 'light'] as const).map((t_) => (
-            <button
-              key={t_}
-              onClick={() => setTheme(t_)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                theme === t_
-                  ? 'bg-[var(--accent)] text-[var(--bg-primary)]'
-                  : 'bg-[var(--bg-raised)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-              }`}
-            >
-              {t_ === 'dark' ? t('settings.theme_dark') : t('settings.theme_light')}
-            </button>
-          ))}
-        </div>
-      </section>
-      */}
 
       <section>
         <h3 className="text-xs uppercase tracking-widest text-[var(--text-muted)] mb-3">

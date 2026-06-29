@@ -24,7 +24,7 @@ import type { XMBItem } from '@/types'
 
 // One source of truth for an item's visual identity: the wave palette behind it (system →
 // effect contract), plus the icon/extension/color of its file-symbol chip. Both the shell's
-// WaveBackground and the ItemRow file symbol resolve through here so they never drift apart.
+// WaveBackground and the ItemEntry file symbol resolve through here so they never drift apart.
 export interface ItemIdentity {
   palette: ShaderColors
   icon: LucideIcon
@@ -44,7 +44,7 @@ const IDENTITY = {
   generic:  { palette: CRIMSON, icon: FileCode, extension: 'doc', colorClass: 'text-neutral-400 bg-neutral-500/10 border-neutral-500/25' },
 } satisfies Record<string, ItemIdentity>
 
-export function itemIdentity(item: XMBItem): ItemIdentity {
+export function resolveItemMeta(item: XMBItem): ItemIdentity {
   const id = item.id.toLowerCase()
   const isUrl = item.action?.type === 'openUrl'
 
