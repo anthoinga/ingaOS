@@ -2,10 +2,8 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion, useMotionValue, useTransform, animate, type MotionValue } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { ItemEntry } from './ItemEntry'
-import type { Category, XMBItem } from '@/types'
-
-const ROW_PITCH = 96 // px between item centers; scrollY tracks -activeItemIndex * ROW_PITCH
-const FALLOFF = 180 // px from the selection line where scale/opacity bottom out
+import type { Category, MTBItem } from '@/types'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 interface Props {
   category: Category
@@ -15,7 +13,7 @@ interface Props {
 }
 
 interface ItemWrapperProps {
-  item: XMBItem
+  item: MTBItem
   index: number
   activeItemIndex: number
   scrollY: MotionValue<number>
@@ -31,6 +29,10 @@ function PlaylistItemWrapper({
   onSelectItem,
   onOpenItem,
 }: ItemWrapperProps) {
+  const isMobile = useIsMobile()
+  const ROW_PITCH = isMobile ? 72 : 96
+  const FALLOFF = isMobile ? 130 : 180
+
   // Distance from the center of the fixed selection rail.
   const scale = useTransform(scrollY, (y) => {
     const dy = index * ROW_PITCH + y
@@ -94,6 +96,8 @@ function PlaylistItemWrapper({
 
 export function ItemList({ category, activeItemIndex, onSelectItem, onOpenItem }: Props) {
   const { t } = useTranslation()
+  const isMobile = useIsMobile()
+  const ROW_PITCH = isMobile ? 72 : 96
   const scrollY = useMotionValue(-activeItemIndex * ROW_PITCH)
 
   useEffect(() => {
@@ -101,7 +105,7 @@ export function ItemList({ category, activeItemIndex, onSelectItem, onOpenItem }
       duration: 0.3,
       ease: [0.25, 1, 0.5, 1],
     })
-  }, [activeItemIndex, scrollY])
+  }, [activeItemIndex, scrollY, ROW_PITCH])
 
   if (category.items.length === 0) {
     return (

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useXMBNavigation } from '@/hooks/useXMBNavigation'
+import { useMTBNavigation } from '@/hooks/useMTBNavigation'
 import { CATEGORIES } from '@/data/categories'
 import { playSound } from '@/effects/soundEngine'
 import { CategoryColumn } from './CategoryColumn'
@@ -10,6 +10,9 @@ import { ContentPanel } from './ContentPanel'
 import { CornerUpLeft } from 'lucide-react'
 import { StatusBar } from './StatusBar'
 import { useMusic } from '@/contexts/MusicContext'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { useSwipeNavigation } from '@/hooks/useSwipeNavigation'
+import { motion } from 'motion/react'
 
 
 interface Props {
@@ -17,8 +20,10 @@ interface Props {
   onExit: () => void
 }
 
-export function XMBShell({ onExit, isActive = true }: Props) {
-  const { state, moveCategory, moveItem, openApp, closeApp } = useXMBNavigation(isActive, onExit)
+export function MTBShell({ onExit, isActive = true }: Props) {
+  const isMobile = useIsMobile()
+  const { state, moveCategory, moveItem, openApp, closeApp } = useMTBNavigation(isActive, onExit)
+  useSwipeNavigation({ isActive, moveCategory, moveItem })
   const { play } = useMusic()
 
   const activeCategory = CATEGORIES[state.activeCategoryIndex]
@@ -64,12 +69,12 @@ export function XMBShell({ onExit, isActive = true }: Props) {
     <div className="relative z-0 w-full h-full overflow-hidden select-none">
       <WaveBackground targetColors={targetColors} />
 
-      <div className="absolute top-8 right-10 z-10">
+      <div className="absolute top-0 left-0 right-0 sm:top-8 sm:left-auto sm:right-10 z-10 overflow-x-auto scrollbar-hide px-4 py-3 sm:px-0 sm:py-0">
         <StatusBar />
       </div>
 
-      <div className="relative w-full h-full pt-[25vh]">
-        <div className="relative z-10 overflow-hidden w-full h-[180px]">
+      <div className="relative w-full h-full pt-[20vh] sm:pt-[25vh]">
+        <div className="relative z-10 overflow-hidden w-full h-[120px] sm:h-[180px]">
           <CategoryColumn
             categories={CATEGORIES}
             activeCategoryIndex={state.activeCategoryIndex}
@@ -82,8 +87,14 @@ export function XMBShell({ onExit, isActive = true }: Props) {
         </div>
 
         {activeCategory && activeCategory.items.length > 0 && (
-          <div className="absolute left-[calc(22vw-56px)] top-0 bottom-0 w-[640px] overflow-hidden pointer-events-none z-0">
-            <div className="pointer-events-auto h-full pt-[calc(25vh+170px)]">
+          <motion.div
+            layout
+            className={cn(
+              "absolute top-0 bottom-0 overflow-hidden pointer-events-none z-0",
+              isMobile ? "left-[5vw] w-[90vw]" : "left-[calc(22vw-56px)] w-[640px]"
+            )}
+          >
+            <div className={cn("pointer-events-auto h-full", isMobile ? "pt-[calc(20vh+110px)]" : "pt-[calc(25vh+170px)]")}>
               <ItemList
                 key={activeCategory.key}
                 category={activeCategory}
@@ -92,7 +103,7 @@ export function XMBShell({ onExit, isActive = true }: Props) {
                 onOpenItem={handleOpenItem}
               />
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -102,13 +113,13 @@ export function XMBShell({ onExit, isActive = true }: Props) {
       <button
         onClick={onExit}
         className={cn(
-          "absolute bottom-10 left-12 z-50 flex flex-col items-center justify-center w-12 h-12 rounded-lg border shrink-0 select-none cursor-pointer focus:outline-none transition-all duration-200 pointer-events-auto",
+          "absolute bottom-4 left-4 sm:bottom-10 sm:left-12 z-50 flex flex-col items-center justify-center w-8 h-8 sm:w-12 sm:h-12 rounded-lg border shrink-0 select-none cursor-pointer focus:outline-none transition-all duration-200 pointer-events-auto",
           "text-neutral-400 bg-neutral-500/10 border-neutral-500/25"
         )}
         aria-label="Exit back to landing page"
       >
-        <CornerUpLeft className="w-5 h-5" />
-        <span className="absolute bottom-1 right-1 text-[8px] font-bold font-mono tracking-wider opacity-80 uppercase">
+        <CornerUpLeft className="w-4 h-4 sm:w-5 h-5" />
+        <span className="absolute bottom-0.5 right-0.5 sm:bottom-1 sm:right-1 text-[6px] sm:text-[8px] font-bold font-mono tracking-wider opacity-80 uppercase">
           ESC
         </span>
       </button>

@@ -40,7 +40,7 @@ export function CategoryIcon({ category, isActive, onClick }: Props) {
     <button
       onClick={onClick}
       className={cn(
-        'flex flex-col items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 select-none focus:outline-none',
+        'flex flex-col items-center gap-3 px-2 py-2 sm:px-4 sm:py-3 rounded-lg transition-all duration-200 select-none focus:outline-none',
         isActive
           ? 'scale-110'
           : 'scale-[0.9] text-neutral-500',
@@ -49,7 +49,7 @@ export function CategoryIcon({ category, isActive, onClick }: Props) {
     >
       <IconComponent
         className={cn(
-          'w-20 h-20 transition-all duration-200',
+          'w-12 h-12 sm:w-20 sm:h-20 transition-all duration-200',
           isActive
             ? 'text-white drop-shadow-[0_0_8px_var(--accent)]'
             : 'text-current',
@@ -58,7 +58,7 @@ export function CategoryIcon({ category, isActive, onClick }: Props) {
         fill="none"
       />
       {isActive && (
-        <span className="text-base font-medium tracking-wide font-sans text-white">
+        <span className="text-sm sm:text-base font-medium tracking-wide font-sans text-white">
           {t(category.labelKey)}
         </span>
       )}

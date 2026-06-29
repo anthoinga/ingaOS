@@ -1,7 +1,7 @@
 import { type ComponentType } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import type { CategoryKey, XMBItem, AppProps } from '@/types'
+import type { CategoryKey, MTBItem, AppProps } from '@/types'
 import { WorkViewer } from '../apps/WorkViewer'
 import { FilesViewer } from '../apps/FilesViewer'
 import { SettingsPanel } from '../apps/SettingsPanel'
@@ -28,7 +28,7 @@ const SIDEBAR_APPS = new Set<string>(['settings', 'contacts'])
 
 interface Props {
   openApp: CategoryKey | null
-  activeItem: XMBItem | null
+  activeItem: MTBItem | null
   onClose: () => void
 }
 
