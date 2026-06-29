@@ -3,12 +3,9 @@ import { PortableText } from '@portabletext/react'
 import { useTranslation } from 'react-i18next'
 import { getCaseStudies, getCaseStudy, urlFor, type CaseStudy } from '@/lib/sanity'
 import type { SanityImageSource } from '@sanity/image-url'
+import type { AppProps } from '@/types'
 
-interface Props {
-  onClose: () => void
-}
-
-export function WorkViewer({ onClose: _onClose }: Props) {
+export function WorkViewer({ onClose: _onClose }: AppProps) {
   const { t } = useTranslation()
   const [studies, setStudies] = useState<CaseStudy[]>([])
   const [selected, setSelected] = useState<CaseStudy | null>(null)

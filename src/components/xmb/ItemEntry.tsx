@@ -11,7 +11,7 @@ interface Props {
   subOpacity?: MotionValue<number>
 }
 
-export function ItemRow({ item, isActive, onClick, subOpacity }: Props) {
+export function ItemEntry({ item, isActive, onClick, subOpacity }: Props) {
   const { t } = useTranslation()
 
   return (

@@ -1,8 +1,7 @@
 import contacts from '@/data/contacts.json'
+import type { AppProps } from '@/types'
 
-interface Props { onClose: () => void }
-
-export function ContactsView({ onClose: _onClose }: Props) {
+export function ContactsView({ onClose: _onClose }: AppProps) {
   return (
     <div className="h-full overflow-y-auto px-6 py-6 max-w-sm">
       <h2 className="text-lg font-display font-medium text-[var(--text-primary)] mb-4">Contacts</h2>

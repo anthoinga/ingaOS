@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getPhotos, urlFor, type Photo } from '@/lib/sanity'
 import type { SanityImageSource } from '@sanity/image-url'
+import type { AppProps } from '@/types'
 
-interface Props { onClose: () => void }
-
-export function PhotoViewer({ onClose: _onClose }: Props) {
+export function PhotoViewer({ onClose: _onClose }: AppProps) {
   const { t } = useTranslation()
   const [photos, setPhotos] = useState<Photo[]>([])
   const [lightbox, setLightbox] = useState<Photo | null>(null)

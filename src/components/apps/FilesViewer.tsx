@@ -3,16 +3,13 @@ import { Document, Page, pdfjs } from 'react-pdf'
 import { useTranslation } from 'react-i18next'
 import { getTalks, urlFor, type Talk } from '@/lib/sanity'
 import type { SanityImageSource } from '@sanity/image-url'
+import type { AppProps } from '@/types'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
 
-interface Props {
-  onClose: () => void
-}
-
-export function FilesViewer({ onClose: _onClose }: Props) {
+export function FilesViewer({ onClose: _onClose }: AppProps) {
   const { t } = useTranslation()
   const [talks, setTalks] = useState<Talk[]>([])
   const [selected, setSelected] = useState<Talk | null>(null)

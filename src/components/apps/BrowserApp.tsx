@@ -33,7 +33,7 @@ export function BrowserApp({ onClose: _onClose }: Props) {
             src={selected.url}
             className="w-full h-full border-0"
             title={selected.label}
-            sandbox="allow-scripts allow-same-origin allow-forms"
+            sandbox="allow-scripts allow-forms"
           />
         ) : (
           <div className="h-full flex items-center justify-center">
