@@ -275,7 +275,7 @@ export function WaveBackground({ targetColors }: Props) {
 
     return (
       <div
-        className="absolute inset-0 -z-10 transition-all duration-[1000ms] ease-out"
+        className="absolute inset-0 z-0 transition-all duration-[1000ms] ease-out"
         style={{
           background: `linear-gradient(160deg, ${accentCss} 0%, ${surfCss} 40%, ${baseCss} 100%)`,
         }}
@@ -286,7 +286,7 @@ export function WaveBackground({ targetColors }: Props) {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 -z-10 w-full h-full"
+      className="absolute inset-0 z-0 w-full h-full"
       style={{ display: 'block' }}
     />
   )
