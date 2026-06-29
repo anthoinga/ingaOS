@@ -22,7 +22,7 @@ export default tseslint.config(
       'boundaries/elements': [
         { type: 'ui', mode: 'full', pattern: 'src/components/ui/**' },
         { type: 'effects', mode: 'full', pattern: 'src/effects/**' },
-        { type: 'system', mode: 'full', pattern: ['src/components/xmb/**', 'src/hooks/**', 'src/contexts/**'] },
+        { type: 'system', mode: 'full', pattern: ['src/components/mtb/**', 'src/hooks/**', 'src/contexts/**'] },
         { type: 'apps', mode: 'full', pattern: 'src/components/apps/**' },
         { type: 'data', mode: 'full', pattern: 'src/data/**' },
         { type: 'lib', mode: 'full', pattern: 'src/lib/**' },

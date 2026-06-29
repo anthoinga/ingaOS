@@ -153,38 +153,41 @@ export function StatusBar() {
   const isColonVisible = currentTime.getSeconds() % 2 === 0
 
   return (
-    <div className="flex items-center gap-6 select-none font-mono text-base text-[var(--text-primary)]">
+    <div className="flex items-center gap-6 select-none font-mono text-base text-[var(--text-primary)] flex-nowrap flex-shrink-0">
       {/* Sun Symbol Section */}
-      <div className="flex items-center">
-        <span className="opacity-95 text-3xl leading-none">☀</span>
+      <div className="flex items-center flex-nowrap flex-shrink-0">
+        <span className="opacity-95 text-xl sm:text-3xl leading-none">☀</span>
       </div>
 
       {/* Vertical Separator */}
-      <div className="w-[1px] h-5 bg-white/15" />
+      <div className="w-[1px] h-5 bg-white/15 shrink-0" />
 
       {/* Media Player Controls Section */}
-      <div className="flex items-center gap-4">
-        <span className="font-medium tracking-tight opacity-90 max-w-[150px] truncate select-none">
+      <div className="flex items-center gap-4 flex-nowrap flex-shrink-0">
+        <span
+          className="font-medium tracking-tight opacity-90 max-w-[150px] truncate select-none"
+          style={{ fontSize: 'var(--text-ui-sm)' }}
+        >
           {isMediaActive && music.currentTrack ? music.currentTrack.title : AMBIENT_TRACKS[ambientIndex].desc}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-nowrap flex-shrink-0">
           <button
             onClick={handlePrev}
-            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none"
+            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none flex-shrink-0"
             title="Previous Track"
           >
             <SkipBack size={16} />
           </button>
           <button
             onClick={handleTogglePlay}
-            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none"
+            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none flex-shrink-0"
             title={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? <Pause size={16} /> : <Play size={16} />}
           </button>
           <button
             onClick={handleNext}
-            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none"
+            className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none flex-shrink-0"
             title="Next Track"
           >
             <SkipForward size={16} />
@@ -193,25 +196,25 @@ export function StatusBar() {
       </div>
 
       {/* Vertical Separator */}
-      <div className="w-[1px] h-5 bg-white/15" />
+      <div className="w-[1px] h-5 bg-white/15 shrink-0" />
 
       {/* System Health Section */}
-      <div className="flex items-center gap-2.5 opacity-90" title="System Health: Active">
+      <div className="flex items-center gap-2.5 opacity-90 flex-nowrap flex-shrink-0" title="System Health: Active">
         <SystemHealthGrid />
-        <span className="tracking-tight">SYS_OK</span>
+        <span className="tracking-tight text-[10px] sm:text-xs">SYS_OK</span>
       </div>
 
       {/* Vertical Separator */}
-      <div className="w-[1px] h-5 bg-white/15" />
+      <div className="w-[1px] h-5 bg-white/15 shrink-0" />
 
       {/* Date & Time Clock Section */}
-      <div className="flex items-center gap-2.5 opacity-90 tabular-nums">
+      <div className="flex items-center gap-2.5 opacity-90 tabular-nums flex-nowrap flex-shrink-0" style={{ fontSize: 'var(--text-ui-sm)' }}>
         <span>{formatDate(currentTime)}</span>
-        <span className="font-bold text-[var(--text-primary)] flex items-center">
+        <span className="font-bold text-[var(--text-primary)] flex items-center flex-nowrap flex-shrink-0">
           <span>{hours}</span>
           <span className={`transition-opacity duration-100 ${isColonVisible ? 'opacity-100' : 'opacity-20'}`}>:</span>
           <span>{minutes}</span>
-          <span className="ml-1.5 text-sm font-medium opacity-80">{ampm}</span>
+          <span className="ml-1.5 text-sm font-medium opacity-80" style={{ fontSize: 'var(--text-ui-xs)' }}>{ampm}</span>
         </span>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { MusicProvider } from './contexts/MusicContext'
 import { LandingPage, REVEAL_MS } from './components/LandingPage'
-import { XMBShell } from './components/xmb/XMBShell'
+import { MTBShell } from './components/mtb/MTBShell'
 import { playSound, setMuffled } from './effects/soundEngine'
 import './lib/i18n'
 
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <MusicProvider>
       <div className="relative w-full h-full">
-        <XMBShell
+        <MTBShell
           onExit={() => {
             setMuffled(true) // Muffle master filter when returning to landing page
             setView('landing')

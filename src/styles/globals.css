@@ -22,6 +22,10 @@
     --accent-yellow: #EAB308;
 
     --radius: 0.5rem;
+
+    --text-ui-xs: clamp(0.55rem, 1.5vw, 0.65rem);
+    --text-ui-sm: clamp(0.65rem, 2vw, 0.75rem);
+    --text-ui-base: clamp(0.8rem, 2.5vw, 1rem);
   }
 
   /* Light theme overrides only the surface/text ramp; the shell keeps its dark chrome.
@@ -139,5 +143,13 @@
 
   .accent-text-glow {
     text-shadow: 0 0 8px hsla(var(--accent) / 0.5);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
