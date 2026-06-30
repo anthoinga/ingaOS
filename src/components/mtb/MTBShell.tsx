@@ -69,7 +69,7 @@ export function MTBShell({ onExit, isActive = true }: Props) {
     <div className="relative z-0 w-full h-full overflow-hidden select-none">
       <WaveBackground targetColors={targetColors} />
 
-      <div className="absolute top-0 left-0 right-0 sm:top-8 sm:left-auto sm:right-10 z-10 overflow-x-auto scrollbar-hide px-4 py-3 sm:px-0 sm:py-0">
+      <div className="absolute top-0 left-0 right-0 sm:top-8 sm:left-auto sm:right-10 z-20 px-4 py-3 sm:px-0 sm:py-0">
         <StatusBar />
       </div>
 

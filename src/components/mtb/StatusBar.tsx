@@ -6,7 +6,9 @@ import {
   Pause,
   SkipBack,
   SkipForward,
+  MoreHorizontal,
 } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
 
 const AMBIENT_TRACKS = [
   { name: 'Sumaq', desc: 'SUMAQ' },
@@ -81,6 +83,9 @@ export function StatusBar() {
   // Date and Time
   const [currentTime, setCurrentTime] = useState(new Date())
 
+  // Menu Open State for Mobile
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const isMediaActive = music.currentTrack !== null
   const isPlaying = isMediaActive ? music.isPlaying : isAmbientPlaying
 
@@ -153,17 +158,17 @@ export function StatusBar() {
   const isColonVisible = currentTime.getSeconds() % 2 === 0
 
   return (
-    <div className="flex items-center gap-6 select-none font-mono text-base text-[var(--text-primary)] flex-nowrap flex-shrink-0">
+    <div className="flex items-center gap-6 select-none font-mono text-base text-[var(--text-primary)] flex-nowrap flex-shrink-0 relative">
       {/* Sun Symbol Section */}
       <div className="flex items-center flex-nowrap flex-shrink-0">
         <span className="opacity-95 text-xl sm:text-3xl leading-none">☀</span>
       </div>
 
-      {/* Vertical Separator */}
+      {/* Separator 1 (always visible since either Media Controls or "..." Menu is shown on its right) */}
       <div className="w-[1px] h-5 bg-white/15 shrink-0" />
 
-      {/* Media Player Controls Section */}
-      <div className="flex items-center gap-4 flex-nowrap flex-shrink-0">
+      {/* Media Player Controls Section (visible on >=sm) */}
+      <div className="hidden sm:flex items-center gap-4 flex-nowrap flex-shrink-0">
         <span
           className="font-medium tracking-tight opacity-90 max-w-[150px] truncate select-none"
           style={{ fontSize: 'var(--text-ui-sm)' }}
@@ -195,16 +200,30 @@ export function StatusBar() {
         </div>
       </div>
 
-      {/* Vertical Separator */}
-      <div className="w-[1px] h-5 bg-white/15 shrink-0" />
+      {/* Separator 2 (visible on >=md between Media Controls and System Health) */}
+      <div className="hidden md:block w-[1px] h-5 bg-white/15 shrink-0" />
 
-      {/* System Health Section */}
-      <div className="flex items-center gap-2.5 opacity-90 flex-nowrap flex-shrink-0" title="System Health: Active">
+      {/* System Health Section (visible on >=md) */}
+      <div className="hidden md:flex items-center gap-2.5 opacity-90 flex-nowrap flex-shrink-0" title="System Health: Active">
         <SystemHealthGrid />
         <span className="tracking-tight text-[10px] sm:text-xs">SYS_OK</span>
       </div>
 
-      {/* Vertical Separator */}
+      {/* "..." Menu Button (visible on mobile only, <sm) */}
+      <div className="flex sm:hidden items-center flex-nowrap flex-shrink-0">
+        <button
+          onClick={() => {
+            playSound('select_confirm')
+            setIsMenuOpen(!isMenuOpen)
+          }}
+          className="opacity-70 hover:opacity-100 transition-opacity duration-150 p-0.5 focus:outline-none flex-shrink-0"
+          title="More System Controls"
+        >
+          <MoreHorizontal size={18} />
+        </button>
+      </div>
+
+      {/* Separator 3 (always visible between Clock and whatever is on its left: Health/Menu/Media) */}
       <div className="w-[1px] h-5 bg-white/15 shrink-0" />
 
       {/* Date & Time Clock Section */}
@@ -217,6 +236,74 @@ export function StatusBar() {
           <span className="ml-1.5 text-sm font-medium opacity-80" style={{ fontSize: 'var(--text-ui-xs)' }}>{ampm}</span>
         </span>
       </div>
+
+      {/* Dropdown Menu for Mobile */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Transparent backdrop overlay to dismiss on tap */}
+            <div 
+              className="fixed inset-0 z-40 cursor-default" 
+              onClick={() => setIsMenuOpen(false)}
+            />
+            
+            {/* The actual menu panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.95 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              className="absolute top-full right-0 mt-3 z-50 w-72 rounded-lg border border-white/10 bg-neutral-900/90 backdrop-blur-md p-4 shadow-2xl flex flex-col gap-4 text-[var(--text-primary)]"
+            >
+              {/* Media Controls inside the dropdown */}
+              <div className="flex flex-col gap-2 w-full py-1">
+                <span className="text-[10px] text-[var(--text-muted)] font-mono tracking-wider">NOW PLAYING</span>
+                <div className="flex items-center justify-between w-full bg-white/5 rounded-md p-2 border border-white/5">
+                  <span className="font-mono text-xs font-medium tracking-tight truncate max-w-[140px]">
+                    {isMediaActive && music.currentTrack ? music.currentTrack.title : AMBIENT_TRACKS[ambientIndex].desc}
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={handlePrev}
+                      className="opacity-80 hover:opacity-100 active:scale-90 transition-all p-1 focus:outline-none flex-shrink-0"
+                      title="Previous Track"
+                    >
+                      <SkipBack size={18} />
+                    </button>
+                    <button
+                      onClick={handleTogglePlay}
+                      className="opacity-80 hover:opacity-100 active:scale-90 transition-all p-1 focus:outline-none flex-shrink-0"
+                      title={isPlaying ? 'Pause' : 'Play'}
+                    >
+                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="opacity-80 hover:opacity-100 active:scale-90 transition-all p-1 focus:outline-none flex-shrink-0"
+                      title="Next Track"
+                    >
+                      <SkipForward size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Separator line inside dropdown */}
+              <div className="h-[1px] w-full bg-white/10" />
+
+              {/* System Health inside the dropdown */}
+              <div className="flex items-center justify-between w-full py-1">
+                <span className="text-[10px] text-[var(--text-muted)] font-mono tracking-wider">SYSTEM STATUS</span>
+                <div className="flex items-center gap-2 opacity-90">
+                  <SystemHealthGrid />
+                  <span className="tracking-tight text-xs font-mono">SYS_OK</span>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
+

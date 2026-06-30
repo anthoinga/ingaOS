@@ -396,11 +396,16 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
       </div>
 
       {/* Main hero typography and bottom links wrapped in single left-aligned flex container */}
-      <div className="relative z-10 flex flex-col justify-between items-start w-full h-full pt-36 pb-16 px-12 md:px-24">
+      <div className="relative z-10 flex flex-col justify-between items-start w-full h-full pt-16 pb-16 px-12 md:px-24">
+        {/* Top left logo banner */}
+        <div className="font-mono text-lg md:text-xl font-bold tracking-tight text-[var(--text-primary)] opacity-90 select-none">
+          inga.dev
+        </div>
+
         {/* Main Hero */}
         <div className="my-auto max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-sans font-light tracking-tight text-[var(--text-primary)] text-left leading-[1.15]">
-            <span className="font-bold text-6xl md:text-8xl tracking-tighter mr-1 md:mr-2 inline-block align-baseline">INGA</span> {t('landing.hero')}{' '}
+          <h1 className="text-3xl md:text-5xl font-sans font-light tracking-tight text-[var(--text-primary)] text-left leading-[1.15]">
+            {t('landing.hero')}{' '}
             <a
               href="https://www.persimmony.com"
               target="_blank"
@@ -408,16 +413,16 @@ export function LandingPage({ isRevealing, isHovered }: Props) {
               className="relative inline-block mt-2 md:mt-0 hover:text-[var(--accent-lime)] transition-colors duration-150"
             >
               @Persimmony
-              <span className="absolute bottom-[-8px] md:bottom-[-12px] left-0 right-0 h-[1px] bg-current" />
+              <span className="absolute bottom-[-4px] md:bottom-[-6px] left-0 right-0 h-[1px] bg-current" />
             </a>
           </h1>
         </div>
 
         {/* Bottom secondary stacked metadata links column (aligned left with heading) */}
         <div className="flex flex-col gap-2.5 font-mono text-sm text-white text-left">
-          <div className="inline-flex items-center gap-2 w-fit">
+          <div className="inline-flex items-center gap-2 w-fit opacity-50">
             <span className="text-xl leading-none w-4 h-4 flex items-center justify-center select-none translate-y-[3px]">☀</span>
-            <span>ingaOS v0.1.0</span>
+            <span className="font-semibold">ingaOS v0.1.0</span>
           </div>
           <a
             href="mailto:anthony@inga.dev"
