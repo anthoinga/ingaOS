@@ -4,7 +4,7 @@ const config: Config = {
   darkMode: ['class'],
   content: [
     './index.html',
-    './src/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx,svelte}',
   ],
   theme: {
     extend: {

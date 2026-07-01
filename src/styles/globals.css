@@ -29,7 +29,7 @@
   }
 
   /* Light theme overrides only the surface/text ramp; the shell keeps its dark chrome.
-     SettingsPanel toggles [data-theme] — it does not set these values in JS. */
+     Settings toggles [data-theme] — it does not set these values in JS. */
   :root[data-theme='light'] {
     --bg-primary:   #F5F2EE;
     --bg-surface:   #EBE7E1;

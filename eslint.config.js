@@ -1,7 +1,8 @@
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
-import reactHooks from 'eslint-plugin-react-hooks'
 import boundaries from 'eslint-plugin-boundaries'
+import svelte from 'eslint-plugin-svelte'
+import svelteParser from 'svelte-eslint-parser'
 import globals from 'globals'
 
 // The three-tier architecture (see README) is enforced here, not by
@@ -10,12 +11,18 @@ export default tseslint.config(
   { ignores: ['dist', 'sanity', 'node_modules', '*.config.ts', '*.config.js', '*.config.mjs'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  ...svelte.configs['flat/recommended'],
   {
-    files: ['src/**/*.{ts,tsx}'],
-    languageOptions: { globals: globals.browser },
-    plugins: { 'react-hooks': reactHooks, boundaries },
+    files: ['src/**/*.{ts,js,svelte}'],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        extraFileExtensions: ['.svelte'],
+      },
+    },
+    plugins: { boundaries },
     settings: {
-      // Boundaries must resolve the @/ alias and .ts/.tsx targets, or every cross-tier
+      // Boundaries must resolve the @/ alias and .ts/.svelte targets, or every cross-tier
       // import reads as "unknown" and the rules silently never fire.
       'import/resolver': { typescript: { project: './tsconfig.app.json' } },
       'boundaries/include': ['src/**/*'],
@@ -29,12 +36,10 @@ export default tseslint.config(
         { type: 'shared', mode: 'full', pattern: ['src/types/**', 'src/locales/**'] },
         // LandingPage carries the one sanctioned inline shader. It is classified as
         // composition (not effects) on purpose — the exception is declared here, in the open.
-        { type: 'composition', mode: 'full', pattern: ['src/App.tsx', 'src/main.tsx', 'src/components/LandingPage.tsx'] },
+        { type: 'composition', mode: 'full', pattern: ['src/App.svelte', 'src/main.ts', 'src/components/LandingPage.svelte'] },
       ],
     },
     rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
       // A leading underscore marks an intentionally-unused binding (e.g. the app `onClose`
       // contract prop apps receive but don't call themselves).
       '@typescript-eslint/no-unused-vars': ['error', {
@@ -59,4 +64,13 @@ export default tseslint.config(
       }],
     },
   },
+  {
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    languageOptions: {
+      parser: svelteParser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  }
 )

@@ -572,6 +572,7 @@ function scheduleNote(step: number, time: number) {
 
 function scheduler() {
   const c = getCtx()
+  // Track 3 steps at 74 BPM (= 148÷2) for a half-time feel — two beats per step
   const bpm = ambientTrackIndex === 0 ? 116.0 : ambientTrackIndex === 1 ? 118.0 : 74.0
   const stepLen = 30.0 / bpm
   while (nextNoteTime < c.currentTime + scheduleAheadTime) {

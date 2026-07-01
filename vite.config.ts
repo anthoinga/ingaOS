@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
 
 export default defineConfig({
   plugins: [
-    react(),
+    svelte(),
     viteStaticCopy({
       targets: [
         {
@@ -14,6 +15,8 @@ export default defineConfig({
         },
       ],
     }),
+    // Run with ANALYZE=true npm run build to open the treemap
+    ...(process.env.ANALYZE ? [visualizer({ open: true, gzipSize: true, filename: 'dist/stats.html' })] : []),
   ],
   resolve: {
     alias: {
