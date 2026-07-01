@@ -8,8 +8,7 @@ import {
   User,
   Image,
   FileCode,
-  type LucideIcon,
-} from 'lucide-react'
+} from 'lucide-svelte'
 import {
   CRIMSON,
   GREEN,
@@ -19,15 +18,16 @@ import {
   BLUE,
   YELLOW,
   type ShaderColors,
-} from '@/effects/WaveBackground'
+} from '@/effects/waveColors'
 import type { MTBItem } from '@/types'
+import type { ComponentType } from 'svelte'
 
 // One source of truth for an item's visual identity: the wave palette behind it (system →
 // effect contract), plus the icon/extension/color of its file-symbol chip. Both the shell's
 // WaveBackground and the ItemEntry file symbol resolve through here so they never drift apart.
 export interface ItemIdentity {
   palette: ShaderColors
-  icon: LucideIcon
+  icon: ComponentType
   extension: string
   colorClass: string
 }
@@ -49,7 +49,7 @@ export function resolveItemMeta(item: MTBItem): ItemIdentity {
   const isUrl = item.action?.type === 'openUrl'
 
   if (id.startsWith('settings-')) return IDENTITY.settings
-  if (id === 'contacts-friends' || id.startsWith('files-')) return IDENTITY.files
+  if (id.startsWith('files-')) return IDENTITY.files
   if (id.startsWith('music-')) return IDENTITY.music
   if (id.startsWith('games-') || id === 'galaga') return IDENTITY.games
   if (id.startsWith('built-') || id.startsWith('work-')) return IDENTITY.code
